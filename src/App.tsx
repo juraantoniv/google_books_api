@@ -1,25 +1,79 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
-import './App.css';
+
+import {bookApiService} from "./services/bookservise";
+import {Card, CircularProgress, Grid} from "@mui/material";
+import SearchBar from "./components/SearchBar";
+import {Navigate, Route, Routes } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import {Cards} from "./components/Cards";
+
+export type State = {
+  items:ItemsType[]
+}
+
+
+export type ItemsType = {
+  accessInfo:object
+  etag:string
+  id:string
+  kind:string
+  saleInfo:object
+  selfLink:string
+  volumeInfo:bookInfoType
+}
+
+export type bookInfoType = {
+  authors:string
+  canonicalVolumeLink:string
+  categories:string
+  contentVersion:string
+  description:string
+  imageLinks:imageLinksInfoType
+  industryIdentifiers:string
+  infoLink:string
+  language:string
+  maturityRating:string
+  pageCount:string
+  panelizationSummary:string
+  previewLink:string
+  printType:string
+  publishedDate:string
+  publisher:string
+  readingModes:string
+  subtitle:string
+  title:string
+}
+
+export type imageLinksInfoType = {
+  smallThumbnail:string
+  thumbnail:string
+}
+
+const styleForCard = {
+  padding:'20px',
+  width:'180px',
+  height:'350px',
+  margin:'20px',
+  ':hover': {
+    boxShadow: 20
+  }
+}
 
 function App() {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <Routes>
+          <Route element={<MainLayout/>}>
+            <Route index element={<Navigate to={'/Movies'}/>}/>
+            <Route path={'Movies'} element={<Cards/>}/>
+            <Route path={':genre'} element={<Cards/>}/>
+          </Route>
+        </Routes>
+      </div>
+
   );
 }
 
