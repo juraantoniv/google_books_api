@@ -25,6 +25,7 @@ export default function SearchAppBar() {
     const navigate = useNavigate();
 
     const [query, setQuery] = useState("")
+    const [error, setError] = useState<boolean>(false)
 
     let page = useSelector<AppRootStateType, number>(state => state.books.pages)
     let author = useSelector<AppRootStateType, string>(state => state.books.author)
@@ -35,7 +36,7 @@ export default function SearchAppBar() {
 const margin ={
     marginRight:'10px',
     marginTop:'60px',
-    background:'red',
+    background:'blue',
     width:'290px',
     fontSize:'11px'
 }
@@ -95,10 +96,12 @@ const margin ={
 
 
                     <TextField
-                        id="outlined-basic" label="Search Book" variant="outlined" size={'small'}
+                        id="outlined-basic" label="Search Book" variant="filled" size={'small'}
                         sx={{width:500,marginLeft:10,marginTop:'46px'}}
                         onChange={event => onChangeHandler(event)}
                         value={query}
+                        error={error}
+
                     />
                     <SelectForName/>
                     <ControlledOpenSelect/>

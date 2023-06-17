@@ -2,13 +2,24 @@ import React, {useEffect, useReducer, useState} from 'react';
 import logo from './logo.svg';
 
 
-import {Card, CircularProgress, Grid} from "@mui/material";
+import {
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    CardMedia,
+    CircularProgress,
+    Grid,
+    Typography
+} from "@mui/material";
 import {bookApiService} from "../services/bookservise";
 
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redusers/store";
 import {addBooksAC} from "../redusers/bookReduser";
+import Button from "@mui/material/Button";
+import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 
 
 export type State = {
@@ -56,19 +67,19 @@ export type imageLinksInfoType = {
 }
 
 const styleForCard = {
-    padding:'20px',
-    width:'250px',
-    height:'450px',
+    justifyContent:'center',
+
+    width:'280px',
+    height:'480px',
     borderRadius:15,
     margin:'20px',
     backgroundColor:'blue',
-
-    '&:hover': {
-        backgroundColor: 'blue',
-    }
 }
 
 export const Cards = () => {
+
+
+    const imgNotFound = 'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
 
 
     const [loading,setLoading] = useState<boolean>(true)
@@ -128,18 +139,43 @@ export const Cards = () => {
 
 
 
+
     return (
         <div style={{display:'flex', justifyContent:'center'}}>
 
         {loading?  <CircularProgress size="12rem"/> : <Grid style={{display:'flex', justifyContent:'center'}} container spacing={3}>
 
             {
-                books.map(el => (
+                books?.map(el => (
+
+
 
                 <Card style={styleForCard}>
-
-                    <div>{el.volumeInfo?.title}</div>
-                    <img src={el.volumeInfo.imageLinks?.thumbnail} alt={el.volumeInfo.imageLinks?.thumbnail}></img>
+                    <CardActionArea>
+                        <CardMedia
+                            component="img"
+                            height="230"
+                            image={el.volumeInfo?.imageLinks?.thumbnail ? el.volumeInfo.imageLinks?.thumbnail : imgNotFound}
+                            // image={el.volumeInfo?.imageLinks?.thumbnail}
+                            alt="img"
+                        />
+                        <CardContent>
+                            <Typography fontWeight={'bold'} gutterBottom variant="overline" component="small">
+                            {el.volumeInfo?.title}
+                        </Typography>
+                            </CardContent>
+                        <CardContent>
+                            <Typography gutterBottom variant="button" component="small">
+                                Authors''' {el.volumeInfo?.authors}
+                            </Typography>
+                        </CardContent>
+                    {/*<div>{el.volumeInfo?.title}</div>*/}
+                    {/*<img src={el.volumeInfo.imageLinks?.thumbnail} alt={el.volumeInfo.imageLinks?.thumbnail}></img>*/}
+                    </CardActionArea>
+                        <CardActions>
+                            <Button size="small" variant={'contained'}>Read</Button>
+                            <Button size="small">More</Button>
+                        </CardActions>
 
             </Card>
     ))
