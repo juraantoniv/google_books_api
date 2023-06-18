@@ -27,13 +27,20 @@ export type ChangeSeachType = {
 
 }
 
-type ActionsType = ChangeTaskTitleActionType|ChangePagesType|ChangePagesDecType|ChangeSeachType
+export type PaginationTypeType = {
+    type: 'PAGINATION-VALUE',
+    index:number
+
+}
+
+type ActionsType = ChangeTaskTitleActionType|ChangePagesType|ChangePagesDecType|ChangeSeachType|PaginationTypeType
 
 
 const initialState:State = {
     items:[],
     pages:10,
-    author:'title'
+    author:'title',
+    index:1
 }
 
 export const bookReducer = (state= initialState, action: ActionsType): State => {
@@ -80,6 +87,9 @@ export const bookReducer = (state= initialState, action: ActionsType): State => 
 
             return {...state,author:action.name}
         }
+        case 'PAGINATION-VALUE':{
+            return {...state,index:action.index}
+        }
         default:
             return state;
     }
@@ -100,4 +110,7 @@ export const pagesDecAC = (page:number): ChangePagesDecType => {
 
 export const searchAC = (name:string): ChangeSeachType => {
     return {type: 'SEARCH',name} as const
+}
+export const paginationAC = (index:number): PaginationTypeType => {
+    return {type: 'PAGINATION-VALUE',index} as const
 }

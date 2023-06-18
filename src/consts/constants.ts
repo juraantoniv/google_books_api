@@ -37,12 +37,4 @@ export const orders = {
     newest: "&orderBy=newest",
 };
 
-//Route
-export const booksSearch = (
-    parameter = parameters.title,
-    filter = filters.all,
-    order = orders.relevance,
-    term:string
-) =>
-    `${base_url}${query}${parameter}${term}${filter}${order}&maxResults=36&key=${process.env.REACT_APP_GOOGLE_BOOKS_API_KEY}`;
-export const bookDetails = (book_id:string) => `${base_url}${book_id}?key=${process.env.REACT_APP_GOOGLE_BOOKS_API_KEY}`;
+

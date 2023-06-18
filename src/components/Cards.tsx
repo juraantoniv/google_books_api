@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import {bookApiService} from "../services/bookservise";
 
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redusers/store";
 import {addBooksAC} from "../redusers/bookReduser";
@@ -26,6 +26,7 @@ export type State = {
     items:ItemsType[]
     pages:number
     author:string
+    index:number
 }
 
 
@@ -34,9 +35,19 @@ export type ItemsType = {
     etag:string
     id:string
     kind:string
-    saleInfo:object
+    searchInfo:searchInfoType
+    saleInfo:SalesType
     selfLink:string
     volumeInfo:bookInfoType
+}
+
+export type SalesType ={
+    country:string
+    saleability:string
+}
+
+export type searchInfoType ={
+    textSnippet:string
 }
 
 export type bookInfoType = {
@@ -68,9 +79,8 @@ export type imageLinksInfoType = {
 
 const styleForCard = {
     justifyContent:'center',
-
-    width:'280px',
-    height:'480px',
+    width:'360px',
+    minHeight:'250px',
     borderRadius:15,
     margin:'20px',
     backgroundColor:'blue',
@@ -91,6 +101,7 @@ export const Cards = () => {
 
     const books = useSelector<AppRootStateType, ItemsType[]>(state => state.books.items)
     const page = useSelector<AppRootStateType, number>(state => state.books.pages)
+    const index = useSelector<AppRootStateType, number>(state => state.books.index)
 
     const dispatch = useDispatch();
 
@@ -101,7 +112,7 @@ export const Cards = () => {
 
         if (!genre){
 
-        bookApiService.getAll(page).then((res)=>{
+        bookApiService.getAll(page,index).then((res)=>{
             setLoading(false)
             dispatch(addBooksAC(res.data))
 
@@ -115,7 +126,7 @@ export const Cards = () => {
         }
 
 
-    },[page])
+    },[page,index])
 
     useEffect(()=>{
 
@@ -135,7 +146,7 @@ export const Cards = () => {
 
             }
 
-    },[genre,page])
+    },[genre,page,index])
 
 
 
@@ -146,7 +157,7 @@ export const Cards = () => {
         {loading?  <CircularProgress size="12rem"/> : <Grid style={{display:'flex', justifyContent:'center'}} container spacing={3}>
 
             {
-                books?.map(el => (
+                books?.map((el,index) => (
 
 
 
@@ -156,26 +167,27 @@ export const Cards = () => {
                             component="img"
                             height="230"
                             image={el.volumeInfo?.imageLinks?.thumbnail ? el.volumeInfo.imageLinks?.thumbnail : imgNotFound}
-                            // image={el.volumeInfo?.imageLinks?.thumbnail}
                             alt="img"
                         />
                         <CardContent>
-                            <Typography fontWeight={'bold'} gutterBottom variant="overline" component="small">
+                            <Typography  fontFamily={'fantasy'} fontSize={'15px'} gutterBottom variant="overline" component="small">
                             {el.volumeInfo?.title}
                         </Typography>
                             </CardContent>
                         <CardContent>
-                            <Typography gutterBottom variant="button" component="small">
-                                Authors''' {el.volumeInfo?.authors}
+                            <Typography fontFamily={'-moz-initial'} fontWeight={'bold'} gutterBottom variant="button" component="small">
+                                Author | {el.volumeInfo?.authors}
                             </Typography>
                         </CardContent>
-                    {/*<div>{el.volumeInfo?.title}</div>*/}
-                    {/*<img src={el.volumeInfo.imageLinks?.thumbnail} alt={el.volumeInfo.imageLinks?.thumbnail}></img>*/}
-                    </CardActionArea>
+
                         <CardActions>
-                            <Button size="small" variant={'contained'}>Read</Button>
-                            <Button size="small">More</Button>
+                           <Link to={'/info'} state={{...el}} ><Button size="small" variant={'contained'} sx={{marginRight:1}} >More</Button>  </Link>
+                            <Button size="small" variant={'contained'} href={el.volumeInfo.canonicalVolumeLink}>Read</Button>
                         </CardActions>
+                    <Typography fontFamily={'cursive'}  fontSize={'15px'} component="small">
+                        <p style={{padding:10}}>{el.searchInfo?.textSnippet}</p>
+                    </Typography>
+                    </CardActionArea>
 
             </Card>
     ))
@@ -187,5 +199,6 @@ export const Cards = () => {
     </div>
 );
 }
+
 
 

@@ -10,7 +10,7 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {bookApiService} from "../services/bookservise";
 import {useDispatch, useSelector} from "react-redux";
-import {addBooksAC, pagesAddAC, pagesDecAC} from "../redusers/bookReduser";
+import {addBooksAC, pagesAddAC, pagesDecAC, paginationAC} from "../redusers/bookReduser";
 import AppMode from "../provoder.mode";
 import {AppRootStateType} from "../redusers/store";
 import ControlledOpenSelect from "./Select";
@@ -29,6 +29,9 @@ export default function SearchAppBar() {
 
     let page = useSelector<AppRootStateType, number>(state => state.books.pages)
     let author = useSelector<AppRootStateType, string>(state => state.books.author)
+    let index = useSelector<AppRootStateType, number>(state => state.books.index)
+
+
 
     const dispatch = useDispatch();
 
@@ -59,7 +62,7 @@ const margin ={
 
 
 
-    },[query,author])
+    },[query,author,page])
 
 
 
@@ -70,14 +73,12 @@ const margin ={
     }
 
 
-    const  addPage=()=>{
 
-      dispatch(pagesAddAC(+page+10))
-    }
 
    const  decPage=()=> {
 
-        dispatch(pagesDecAC(+page-10))
+       navigate('/')
+       dispatch(paginationAC(0))
     }
 
     console.log(page);
@@ -87,7 +88,7 @@ const margin ={
             <AppBar position="static">
                 <Toolbar sx={toolBarStyles}>
 
-                    <Button  sx={{background:'5e35b1', marginRight:10}} variant="contained" onClick={()=>navigate('/')}>{ <HomeIcon />}</Button>
+                    <Button  sx={{background:'5e35b1', marginRight:10}} variant="contained" onClick={decPage}>{ <HomeIcon />}</Button>
 
                     <Button disabled={genre==='Fiction' } sx={margin} variant="contained" onClick={()=>navigate('Fiction')}>Fiction</Button>
                     <Button disabled={genre==='Self-Help'} sx={margin} variant="contained" onClick={()=>navigate('Self-Help')}>Self-Help</Button>
