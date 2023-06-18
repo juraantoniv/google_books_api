@@ -9,7 +9,7 @@ const instance = axios.create({
 
 const query = "?q=''";
 export const bookApiService  = {
-    getAll:(pages:number,startIndex:number)=>instance.get<AxiosResponse,AxiosResponse<State>>(`/volumes${query}&maxResults=${pages}&start-Index=${startIndex}&${myKey}`),
+    getAll:(pages:number,startIndex:number)=>instance.get<AxiosResponse,AxiosResponse<State>>(`/volumes${query}&maxResults=${pages}&start-index=${startIndex}&${myKey}`),
     getGenres:(value:string|null,pages:number)=>instance.get(`/volumes?q=${value}&maxResults=${pages}&${myKey}`),
     getByName:(value:string|null,pages:number,query:string)=>instance.get(`/volumes?q=${query}:${value}&maxResults=${pages}&${myKey}`)
 }

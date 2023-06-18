@@ -159,8 +159,6 @@ export const Cards = () => {
             {
                 books?.map((el,index) => (
 
-
-
                 <Card style={styleForCard}>
                     <CardActionArea>
                         <CardMedia

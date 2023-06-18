@@ -69,7 +69,8 @@ const margin ={
 
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setQuery(e.currentTarget.value)
+
+         setQuery(e.currentTarget.value)
     }
 
 

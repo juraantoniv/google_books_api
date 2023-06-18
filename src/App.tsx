@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 
 import {bookApiService} from "./services/bookservise";
-import {Card, CircularProgress, Grid} from "@mui/material";
+import {Breadcrumbs, Card, CircularProgress, Grid} from "@mui/material";
 import SearchBar from "./components/SearchBar";
 import {Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
@@ -66,6 +66,7 @@ function App() {
 
   return (
       <div>
+
         <Routes>
           <Route element={<MainLayout/>}>
             <Route index element={<Navigate to={'/Movies'}/>}/>
