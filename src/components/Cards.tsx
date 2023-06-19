@@ -133,6 +133,9 @@ export const Cards = () => {
 
     },[author,page,index])
 
+
+    console.log(page);
+
     useEffect(()=>{
 
             if (genre){
