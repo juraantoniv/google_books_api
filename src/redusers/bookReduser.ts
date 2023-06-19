@@ -40,7 +40,8 @@ const initialState:State = {
     items:[],
     pages:10,
     author:'title',
-    index:10
+    index:10,
+    query:''
 }
 
 export const bookReducer = (state= initialState, action: ActionsType): State => {

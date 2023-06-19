@@ -27,6 +27,7 @@ export type State = {
     pages:number
     author:string
     index:number
+    query:string
 }
 
 
@@ -84,6 +85,7 @@ const styleForCard = {
     borderRadius:15,
     margin:'20px',
     backgroundColor:'blue',
+
 }
 
 export const Cards = () => {

@@ -7,10 +7,52 @@ const instance = axios.create({
 })
 
 
-const query = "?q=''";
+const query = "?q=";
 export const bookApiService  = {
 
-    getAll:(params:string,pages:number,startIndex:number)=>instance.get<AxiosResponse,AxiosResponse<State>>(`/volumes?q=${params}&startIndex=${startIndex}&maxResults=${pages}&${myKey}`),
+    getAll:(params:string,pages:number,startIndex:number)=>instance.get<AxiosResponse,AxiosResponse<State>>(`/volumes?q=${query}&startIndex=${startIndex}&maxResults=${pages}&${myKey}`),
     getGenres:(value:string|null,pages:number,startIndex:number)=>instance.get(`/volumes?q=${value}&startIndex=${startIndex}&maxResults=${pages}&${myKey}`),
     getByName:(value:string|null,pages:number,query:string,startIndex:number)=>instance.get(`/volumes?q=${query}:${value}&startIndex=${startIndex}&maxResults=${pages}&${myKey}`)
 }
+
+
+
+// export const bookApiService = {
+//     getAll: (params: string, pages: number, startIndex: number) =>
+//         instance.get<State>(`/volumes`, {
+//             params: {
+//                 q: params,
+//                 startIndex: startIndex,
+//                 maxResults: pages,
+//                 key: myKey
+//             }
+//         }),
+//     getGenres: (value: string | null, pages: number, startIndex: number) =>
+//         instance.get<State>(`/volumes`, {
+//             params: {
+//                 q: value,
+//                 startIndex: startIndex,
+//                 maxResults: pages,
+//                 key: myKey
+//             }
+//         }),
+//     getByName: (
+//         value: string | null,
+//         pages: number,
+//         query: string,
+//         startIndex: number
+//     ) =>
+//         instance.get<State>(`/volumes`, {
+//             params: {
+//                 q: `${query}:${value}`,
+//                 startIndex: startIndex,
+//                 maxResults: pages,
+//                 key: myKey
+//             }
+//         })
+// };
+//
+//
+//
+//
+//
