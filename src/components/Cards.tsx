@@ -102,6 +102,7 @@ export const Cards = () => {
     const books = useSelector<AppRootStateType, ItemsType[]>(state => state.books.items)
     const page = useSelector<AppRootStateType, number>(state => state.books.pages)
     const index = useSelector<AppRootStateType, number>(state => state.books.index)
+    const author = useSelector<AppRootStateType, string>(state => state.books.author)
 
     const dispatch = useDispatch();
 
@@ -112,7 +113,9 @@ export const Cards = () => {
 
         if (!genre){
 
-        bookApiService.getAll(page,index).then((res)=>{
+        bookApiService.getAll(author,page,index).then((res)=>{
+            console.log(res.data.items.length)
+
             setLoading(false)
             dispatch(addBooksAC(res.data))
 
@@ -126,14 +129,14 @@ export const Cards = () => {
         }
 
 
-    },[page,index])
+    },[author,page,index])
 
     useEffect(()=>{
 
             if (genre){
 
 
-            bookApiService.getGenres(genre,page).then((res)=>{
+            bookApiService.getGenres(genre,page,index).then((res)=>{
                 setLoading(false)
                 dispatch(addBooksAC(res.data))
 
@@ -160,7 +163,9 @@ export const Cards = () => {
                 books?.map((el,index) => (
 
                 <Card style={styleForCard}>
+
                     <CardActionArea>
+
                         <CardMedia
                             component="img"
                             height="230"

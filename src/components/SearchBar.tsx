@@ -10,7 +10,7 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {bookApiService} from "../services/bookservise";
 import {useDispatch, useSelector} from "react-redux";
-import {addBooksAC, pagesAddAC, pagesDecAC, paginationAC} from "../redusers/bookReduser";
+import {addBooksAC, pagesAddAC,paginationAC} from "../redusers/bookReduser";
 import AppMode from "../provoder.mode";
 import {AppRootStateType} from "../redusers/store";
 import ControlledOpenSelect from "./Select";
@@ -53,16 +53,18 @@ const margin ={
 
     useEffect(()=>{
 
+            if (query){
+
+                bookApiService.getByName(query,page,author,index).then((res)=>{
+                    dispatch(addBooksAC(res.data))
+
+                })
+
+            }
 
 
-        bookApiService.getByName(query,page,author).then((res)=>{
-            dispatch(addBooksAC(res.data))
 
-        })
-
-
-
-    },[query,author,page])
+    },[query,author,page,index])
 
 
 

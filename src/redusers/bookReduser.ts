@@ -40,7 +40,7 @@ const initialState:State = {
     items:[],
     pages:10,
     author:'title',
-    index:1
+    index:10
 }
 
 export const bookReducer = (state= initialState, action: ActionsType): State => {
@@ -54,40 +54,15 @@ export const bookReducer = (state= initialState, action: ActionsType): State => 
         }
         case "ADD-PAGE":{
 
-
-
-                        if (state.pages<=40){
-
-                        return {...state,pages:action.page}
-
-                        }
-                        else {
-
-                            return {...state}
-                        }
-
-
+            return {...state,pages:action.page}
         }
-        case "DEC-PAGE": {
 
-
-
-            if (state.pages>=20) {
-
-                return {...state,pages:action.page}
-            }
-
-            else {
-
-                return {...state}
-            }
-
-        }
         case 'SEARCH':{
 
             return {...state,author:action.name}
         }
         case 'PAGINATION-VALUE':{
+
             return {...state,index:action.index}
         }
         default:
@@ -104,9 +79,6 @@ export const pagesAddAC = (page:number): ChangePagesType => {
     return {type: 'ADD-PAGE',page} as const
 }
 
-export const pagesDecAC = (page:number): ChangePagesDecType => {
-    return {type: 'DEC-PAGE',page} as const
-}
 
 export const searchAC = (name:string): ChangeSeachType => {
     return {type: 'SEARCH',name} as const

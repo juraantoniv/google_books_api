@@ -10,6 +10,7 @@ import {paginationAC} from "./redusers/bookReduser";
 import {AppRootStateType} from "./redusers/store";
 import Button from "@mui/material/Button";
 import * as React from "react";
+import {Label} from "@mui/icons-material";
 function AppMode() {
 
     let page = useSelector<AppRootStateType, number>(state => state.books.pages)
@@ -33,13 +34,49 @@ function AppMode() {
         // marginTop:'60px',
         background:'3e2723',
         width:'90px',
-        fontSize:'11px'
+        fontSize:'11px',
+        marginLeft:1
     }
-    const  addPage=()=>{
+    const  addPage=(option:string)=>{
 
-        dispatch(paginationAC(index+10))
+        if (option==='-'){
+
+             if (index!=10){
+
+                 const action = index-page
+
+           dispatch(paginationAC(action))
+
+             }
+
+        }
+        if (option==='+')
+
+        {
+
+
+            console.log('yes2')
+
+            const action = index*(page*2/10)
+
+            dispatch(paginationAC(action))
+
+
+        }
+
+
+
     }
-    return (
+
+
+    const valueOfPage = () => {
+
+        return index===10?2:index/10
+    }
+
+
+
+       return (
         <div className="App">
             <ThemeProvider theme={darkTheme}>
                 <CssBaseline />
@@ -50,7 +87,11 @@ function AppMode() {
                     color='success'
                     onChange={handleChange} />
             </ThemeProvider>
-            <Button sx={margin} variant="contained" onClick={addPage}>Page : {index==0?1:index/10+1}</Button>
+
+            <Button disabled={index===10||index===20} sx={margin} variant="contained" onClick={()=>addPage('-')}>Page -</Button>
+            <Button sx={margin} variant="contained" onClick={()=>addPage('+')}>Page +</Button>
+
+
 
         </div>
     );
