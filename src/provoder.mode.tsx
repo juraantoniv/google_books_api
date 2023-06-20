@@ -11,11 +11,17 @@ import {AppRootStateType} from "./redusers/store";
 import Button from "@mui/material/Button";
 import * as React from "react";
 import {Label} from "@mui/icons-material";
+import {useSearchParams} from "react-router-dom";
 function AppMode() {
 
     let page = useSelector<AppRootStateType, number>(state => state.books.pages)
 
     let index = useSelector<AppRootStateType, number>(state => state.books.index)
+
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    console.log(searchParams);
+
 
     const dispatch = useDispatch();
 
@@ -57,7 +63,7 @@ function AppMode() {
 
             console.log('yes2')
 
-            const action = index*(page*2/10)
+            const action = index+page
 
             dispatch(paginationAC(action))
 
