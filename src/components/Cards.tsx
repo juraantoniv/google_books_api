@@ -17,17 +17,19 @@ import {bookApiService} from "../services/bookservise";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redusers/store";
-import {addBooksAC} from "../redusers/bookReduser";
+import {addBooksAC, addCountOfValuesAC, paginationAC} from "../redusers/bookReduser";
 import Button from "@mui/material/Button";
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 
 
 export type State = {
-    items:ItemsType[]
+
+    items:itemAllTypes
     pages:number
     author:string
     index:number
     query:string
+
 }
 
 
@@ -40,7 +42,15 @@ export type ItemsType = {
     saleInfo:SalesType
     selfLink:string
     volumeInfo:bookInfoType
+    totalItems:number
 }
+
+
+export type itemAllTypes ={
+    items:ItemsType[]
+    totalItems:number
+}
+
 
 export type SalesType ={
     country:string
@@ -101,7 +111,7 @@ export const Cards = () => {
 
     const navigate = useNavigate();
 
-    const books = useSelector<AppRootStateType, ItemsType[]>(state => state.books.items)
+    const books = useSelector<AppRootStateType,ItemsType[] >(state => state.books.items.items)
     const page = useSelector<AppRootStateType, number>(state => state.books.pages)
     const index = useSelector<AppRootStateType, number>(state => state.books.index)
     const author = useSelector<AppRootStateType, string>(state => state.books.author)
@@ -116,10 +126,12 @@ export const Cards = () => {
         if (!genre){
 
         bookApiService.getAll(author,page,index).then((res)=>{
-            console.log(res.data.items.length)
+
+            console.log('all')
 
             setLoading(false)
-            dispatch(addBooksAC(res.data))
+            dispatch(addBooksAC(res.data.items))
+            dispatch(addCountOfValuesAC(res.data.totalItems))
 
         })
             .catch(()=>{
@@ -142,9 +154,13 @@ export const Cards = () => {
 
 
             bookApiService.getGenres(genre,page,index).then((res)=>{
-                setLoading(false)
-                dispatch(addBooksAC(res.data))
 
+
+
+                setLoading(false)
+                dispatch(addBooksAC(res.data.items))
+                dispatch(addCountOfValuesAC(res.data.totalItems))
+                dispatch(paginationAC(10))
 
             })
                 .catch(()=>{
@@ -190,7 +206,7 @@ export const Cards = () => {
 
                         <CardActions>
                            <Link to={'/info'} state={{...el}} ><Button size="small" variant={'contained'} sx={{marginRight:1}} >More</Button>  </Link>
-                            <Button size="small" variant={'contained'} href={el.volumeInfo.canonicalVolumeLink}>Read</Button>
+                            <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
                     <Typography fontFamily={'cursive'}  fontSize={'15px'} component="small">
                         <p style={{padding:10}}>{el.searchInfo?.textSnippet}</p>

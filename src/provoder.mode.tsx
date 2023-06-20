@@ -17,10 +17,18 @@ function AppMode() {
     let page = useSelector<AppRootStateType, number>(state => state.books.pages)
 
     let index = useSelector<AppRootStateType, number>(state => state.books.index)
+    let totalItems = useSelector<AppRootStateType, number>(state => state.books.items.totalItems)
 
     const [searchParams, setSearchParams] = useSearchParams()
 
-    console.log(searchParams);
+    console.log(index);
+
+    // useEffect(() => {
+    //     const params = Object.fromEntries(searchParams)
+    //     sendQuery({page: params.page, count: params.count})
+    //     setPage(+params.page || 1)
+    //     setCount(+params.count || 4)
+    // }, [])
 
 
     const dispatch = useDispatch();
@@ -47,7 +55,7 @@ function AppMode() {
 
         if (option==='-'){
 
-             if (index!=10){
+             if (index>10){
 
                  const action = index-page
 
@@ -94,8 +102,10 @@ function AppMode() {
                     onChange={handleChange} />
             </ThemeProvider>
 
-            <Button disabled={index===10||index===20} sx={margin} variant="contained" onClick={()=>addPage('-')}>Page -</Button>
-            <Button sx={margin} variant="contained" onClick={()=>addPage('+')}>Page +</Button>
+            <Button disabled={index===10 || index===0} sx={margin} variant="contained" onClick={()=>addPage('-')}>{(index/10)}</Button>
+            <Button sx={margin} variant="contained" onClick={()=>addPage('+')}>{(index/10)+1}</Button>
+            <Button sx={margin} variant="contained"  disabled={true}>.....</Button>
+            <Button sx={margin} variant="contained" >{Math.round(totalItems/page)}</Button>
 
 
 

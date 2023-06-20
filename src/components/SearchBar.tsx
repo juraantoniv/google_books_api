@@ -10,7 +10,7 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {bookApiService} from "../services/bookservise";
 import {useDispatch, useSelector} from "react-redux";
-import {addBooksAC, pagesAddAC,paginationAC} from "../redusers/bookReduser";
+import {addBooksAC, addCountOfValuesAC, pagesAddAC, paginationAC} from "../redusers/bookReduser";
 import AppMode from "../provoder.mode";
 import {AppRootStateType} from "../redusers/store";
 import ControlledOpenSelect from "./Select";
@@ -56,8 +56,8 @@ const margin ={
             if (query){
 
                 bookApiService.getByName(query,page,author,index).then((res)=>{
-                    dispatch(addBooksAC(res.data))
-
+                    dispatch(addBooksAC(res.data.items))
+                    dispatch(addCountOfValuesAC(res.data.totalItems))
                 })
 
             }
@@ -84,7 +84,7 @@ const margin ={
        dispatch(paginationAC(0))
     }
 
-    console.log(page);
+
 
     return (
         <Box sx={{ flexGrow: 1, marginBottom:5, display:'flex' ,justifyContent:'center', alignItems:'center'}}>

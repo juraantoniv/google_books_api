@@ -1,6 +1,6 @@
 import axios, {Axios, AxiosResponse} from "axios";
 import {base_url, myKey} from "../consts/constants";
-import {ItemsType, State} from "../components/Cards";
+import {itemAllTypes, ItemsType, State} from "../components/Cards";
 
 const instance = axios.create({
     baseURL: base_url
@@ -10,9 +10,9 @@ const instance = axios.create({
 
 export const bookApiService  = {
 
-    getAll:(params:string,pages:number,startIndex:number)=>instance.get<AxiosResponse,AxiosResponse<State>>(`/volumes?q=title&startIndex=${startIndex}&maxResults=${pages}&${myKey}`),
-    getGenres:(value:string|null,pages:number,startIndex:number)=>instance.get(`/volumes?q=${value}&startIndex=${startIndex}&maxResults=${pages}&${myKey}`),
-    getByName:(value:string|null,pages:number,query:string,startIndex:number)=>instance.get(`/volumes?q=${value}:${query}&startIndex=${startIndex}&maxResults=${pages}&${myKey}`)
+    getAll:(params:string,pages:number,startIndex:number)=>instance.get<AxiosResponse,AxiosResponse<itemAllTypes>>(`/volumes?q=intitle&startIndex=${startIndex}&maxResults=${pages}&${myKey}`),
+    getGenres:(value:string|null,pages:number,startIndex:number)=>instance.get<AxiosResponse,AxiosResponse<itemAllTypes>>(`/volumes?q=${value}&startIndex=${startIndex}&maxResults=${pages}&${myKey}`),
+    getByName:(value:string|null,pages:number,query:string,startIndex:number)=>instance.get<AxiosResponse,AxiosResponse<itemAllTypes>>(`/volumes?q=${value}:${query}&startIndex=${startIndex}&maxResults=${pages}&${myKey}`)
 }
 
 

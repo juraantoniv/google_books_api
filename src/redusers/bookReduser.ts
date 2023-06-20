@@ -4,7 +4,7 @@ import {ItemsType, State} from "../components/Cards";
 
 export type ChangeTaskTitleActionType = {
     type: 'ADD-BOOKS',
-    books: State
+    books:ItemsType[]
 
 }
 
@@ -33,11 +33,20 @@ export type PaginationTypeType = {
 
 }
 
-type ActionsType = ChangeTaskTitleActionType|ChangePagesType|ChangePagesDecType|ChangeSeachType|PaginationTypeType
+export type addCountOfValuesType = {
+    type: 'ADD-VALUE',
+    index:number
+
+}
+
+type ActionsType = ChangeTaskTitleActionType|ChangePagesType|ChangePagesDecType|ChangeSeachType|PaginationTypeType|addCountOfValuesType
 
 
 const initialState:State = {
-    items:[],
+    items:{
+        items:[],
+        totalItems:0
+    },
     pages:10,
     author:'title',
     index:10,
@@ -48,10 +57,13 @@ export const bookReducer = (state= initialState, action: ActionsType): State => 
     switch (action.type) {
         case "ADD-BOOKS":{
 
-            return {
-                ...state,
-                items:action.books.items
-            }
+            return  {...state,items:{...state.items,items:action.books}}
+
+        }
+
+        case 'ADD-VALUE':{
+
+            return  {...state,items:{...state.items,totalItems:action.index}}
         }
         case "ADD-PAGE":{
 
@@ -72,7 +84,7 @@ export const bookReducer = (state= initialState, action: ActionsType): State => 
 }
 
 
-export const addBooksAC = (books:State): ChangeTaskTitleActionType => {
+export const addBooksAC = (books:ItemsType[]): ChangeTaskTitleActionType => {
     return {type: 'ADD-BOOKS', books} as const
 }
 
@@ -86,4 +98,9 @@ export const searchAC = (name:string): ChangeSeachType => {
 }
 export const paginationAC = (index:number): PaginationTypeType => {
     return {type: 'PAGINATION-VALUE',index} as const
+}
+
+
+export const addCountOfValuesAC = (index:number): addCountOfValuesType => {
+    return {type: 'ADD-VALUE',index} as const
 }
