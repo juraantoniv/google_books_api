@@ -8,7 +8,7 @@ import {useDispatch} from "react-redux";
 import {pagesAddAC, searchAC} from "../redusers/bookReduser";
 
 export default function SelectForName() {
-    const [age, setAge] = React.useState('');
+    const [value, setAge] = React.useState('');
 
     const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ export default function SelectForName() {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={age}
+                    value={value}
                     label="Search"
                     onChange={handleChange}
                     size={'small'}

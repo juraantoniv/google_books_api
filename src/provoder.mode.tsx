@@ -105,7 +105,7 @@ function AppMode() {
             <Button disabled={index===10 || index===0} sx={margin} variant="contained" onClick={()=>addPage('-')}>{(index/10)}</Button>
             <Button sx={margin} variant="contained" onClick={()=>addPage('+')}>{(index/10)+1}</Button>
             <Button sx={margin} variant="contained"  disabled={true}>.....</Button>
-            <Button sx={margin} variant="contained" >{Math.round(totalItems/page)}</Button>
+            <Button sx={margin} variant="contained" >{Math.ceil(totalItems/page)}</Button>
 
 
 

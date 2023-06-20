@@ -133,6 +133,7 @@ export const Cards = () => {
             dispatch(addBooksAC(res.data.items))
             dispatch(addCountOfValuesAC(res.data.totalItems))
 
+
         })
             .catch(()=>{
 
@@ -155,12 +156,10 @@ export const Cards = () => {
 
             bookApiService.getGenres(genre,page,index).then((res)=>{
 
-
-
                 setLoading(false)
                 dispatch(addBooksAC(res.data.items))
                 dispatch(addCountOfValuesAC(res.data.totalItems))
-                dispatch(paginationAC(10))
+
 
             })
                 .catch(()=>{
@@ -189,7 +188,7 @@ export const Cards = () => {
 
                         <CardMedia
                             component="img"
-                            height="230"
+                            height="240"
                             image={el.volumeInfo?.imageLinks?.thumbnail ? el.volumeInfo.imageLinks?.thumbnail : imgNotFound}
                             alt="img"
                         />
@@ -209,7 +208,7 @@ export const Cards = () => {
                             <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
                     <Typography fontFamily={'cursive'}  fontSize={'15px'} component="small">
-                        <p style={{padding:10}}>{el.searchInfo?.textSnippet}</p>
+                        <p style={{padding:10, textOverflow:'revert'}}>{el.searchInfo?.textSnippet}</p>
                     </Typography>
                     </CardActionArea>
 
