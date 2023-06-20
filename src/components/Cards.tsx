@@ -155,7 +155,6 @@ export const Cards = () => {
 
 
             bookApiService.getGenres(genre,page,index).then((res)=>{
-
                 setLoading(false)
                 dispatch(addBooksAC(res.data.items))
                 dispatch(addCountOfValuesAC(res.data.totalItems))
