@@ -94,9 +94,9 @@ const margin ={
                     <Button  sx={{background:'5e35b1', marginRight:10}} variant="contained" onClick={decPage}>{ <HomeIcon />}</Button>
 
                     <Button disabled={genre==='Fiction' } sx={margin} variant="contained" onClick={()=>navigate('Fiction')}>Fiction</Button>
-                    <Button disabled={genre==='Self-Help'} sx={margin} variant="contained" onClick={()=>navigate('Self-Help')}>Self-Help</Button>
-                    <Button disabled={genre==='Board books'} sx={margin} variant="contained" onClick={()=>navigate('Board books')}>Board books</Button>
-                    <Button disabled={genre==='Forest animals'} sx={margin} variant="contained" onClick={()=>navigate('Forest animals')}>Forest animals</Button>
+                    <Button disabled={genre==='Self-Help'} sx={margin} variant="contained" onClick={()=>navigate('Computers')}>Computers</Button>
+                    <Button disabled={genre==='Board books'} sx={margin} variant="contained" onClick={()=>navigate('Law')}>Law</Button>
+                    <Button disabled={genre==='Forest animals'} sx={margin} variant="contained" onClick={()=>navigate('Business')}>Business</Button>
 
 
                     <TextField

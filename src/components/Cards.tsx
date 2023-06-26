@@ -64,7 +64,7 @@ export type searchInfoType ={
 export type bookInfoType = {
     authors:string
     canonicalVolumeLink:string
-    categories:string
+    categories:string[]
     contentVersion:string
     description:string
     imageLinks:imageLinksInfoType
@@ -91,11 +91,10 @@ export type imageLinksInfoType = {
 const styleForCard = {
     justifyContent:'center',
     width:'360px',
-    minHeight:'250px',
     borderRadius:15,
     margin:'20px',
     backgroundColor:'blue',
-
+    height:'650px',
 }
 
 export const Cards = () => {
@@ -120,6 +119,15 @@ export const Cards = () => {
 
 
 
+    const filteredBooks: ItemsType[] = books?.filter((el) => {
+        const categories = el.volumeInfo?.categories;
+        console.log(categories); // Log the categories array
+        return categories && categories.includes('Business & Economics');
+    });
+
+
+
+
 
     useEffect(()=>{
 
@@ -127,10 +135,11 @@ export const Cards = () => {
 
         bookApiService.getAll(author,page,index).then((res)=>{
 
-            console.log('all')
 
             setLoading(false)
+            // dispatch(addBooksAC(res.data.items?.filter(el =>el.volumeInfo?.categories[0]==='Travel')))
             dispatch(addBooksAC(res.data.items))
+            console.log(res.data.items);
             dispatch(addCountOfValuesAC(res.data.totalItems))
 
 
@@ -147,7 +156,9 @@ export const Cards = () => {
     },[author,page,index])
 
 
-    console.log(page);
+
+
+
 
     useEffect(()=>{
 
@@ -179,11 +190,11 @@ export const Cards = () => {
         {loading?  <CircularProgress size="12rem"/> : <Grid style={{display:'flex', justifyContent:'center'}} container spacing={3}>
 
             {
-                books?.map((el,index) => (
+               books?.map((el,index) => (
 
                 <Card style={styleForCard}>
 
-                    <CardActionArea>
+                    <CardActionArea sx={{height:'650px'}}>
 
                         <CardMedia
                             component="img"
@@ -196,19 +207,25 @@ export const Cards = () => {
                             {el.volumeInfo?.title}
                         </Typography>
                             </CardContent>
+                        <CardContent sx={{margin:'1px', textShadow:"revert-layer", color:'violet'}}>
+                            <Typography  fontFamily={'monospace'} fontSize={'12px'}  gutterBottom variant="overline" component="small">
+                                Category : {el.volumeInfo?.categories}
+                            </Typography>
+                        </CardContent>
                         <CardContent>
                             <Typography fontFamily={'-moz-initial'} fontWeight={'bold'} gutterBottom variant="button" component="small">
                                 Author | {el.volumeInfo?.authors}
                             </Typography>
                         </CardContent>
-
+                        <CardContent>
                         <CardActions>
-                           <Link to={'/info'} state={{...el}} ><Button size="small" variant={'contained'} sx={{marginRight:1}} >More</Button>  </Link>
+                           <Button component={Link} to={'/info'} state={{...el}} size="small" variant={'contained'} sx={{marginRight:1}} >More</Button>
                             <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
-                    <Typography fontFamily={'cursive'}  fontSize={'15px'} component="small">
-                        <p style={{padding:10, textOverflow:'revert'}}>{el.searchInfo?.textSnippet}</p>
+                    <Typography fontFamily={'cursive'} textOverflow={'clip'} sx={{height:20}} fontSize={'14px'} component="small">
+                       {el.volumeInfo?.description}
                     </Typography>
+                        </CardContent>
                     </CardActionArea>
 
             </Card>

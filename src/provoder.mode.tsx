@@ -1,4 +1,4 @@
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles'
@@ -23,12 +23,14 @@ function AppMode() {
 
     console.log(index);
 
-    // useEffect(() => {
-    //     const params = Object.fromEntries(searchParams)
-    //     sendQuery({page: params.page, count: params.count})
-    //     setPage(+params.page || 1)
-    //     setCount(+params.count || 4)
-    // }, [])
+    useEffect(() => {
+        const params = Object.fromEntries(searchParams)
+
+        console.log(params);
+
+        // setPage(+params.page || 1)
+        // setCount(+params.count || 4)
+    }, [])
 
 
     const dispatch = useDispatch();
@@ -83,11 +85,6 @@ function AppMode() {
     }
 
 
-    const valueOfPage = () => {
-
-        return index===10?2:index/10
-    }
-
 
 
        return (
@@ -102,8 +99,8 @@ function AppMode() {
                     onChange={handleChange} />
             </ThemeProvider>
 
-            <Button disabled={index===10 || index===0} sx={margin} variant="contained" onClick={()=>addPage('-')}>{(index/10)}</Button>
-            <Button sx={margin} variant="contained" onClick={()=>addPage('+')}>{(index/10)+1}</Button>
+            <Button disabled={index===10 || index===0} sx={margin} variant="contained" onClick={()=>addPage('-')}>{Math.ceil((index/10))}</Button>
+            <Button sx={margin} variant="contained" onClick={()=>addPage('+')}>{Math.ceil((index/10)+1)}</Button>
             <Button sx={margin} variant="contained"  disabled={true}>.....</Button>
             <Button sx={margin} variant="contained" >{Math.ceil(totalItems/page)}</Button>
 
