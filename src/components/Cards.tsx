@@ -119,22 +119,21 @@ export const Cards = () => {
 
 
 
-    const filteredBooks: ItemsType[] = books?.filter((el) => {
-        const categories = el.volumeInfo?.categories;
-        console.log(categories); // Log the categories array
-        return categories && categories.includes('Business & Economics');
-    });
+    // const filteredBooks: ItemsType[] = books?.filter((el) => {
+    //     const categories = el.volumeInfo?.categories;
+    //     console.log(categories); // Log the categories array
+    //     return categories && categories.includes('Business & Economics');
+    // });
+    //
 
 
-
-
+    console.log(genre);
 
     useEffect(()=>{
 
-        if (!genre){
+        if (!genre || genre==='google_books_api'){
 
         bookApiService.getAll(author,page,index).then((res)=>{
-
 
             setLoading(false)
             // dispatch(addBooksAC(res.data.items?.filter(el =>el.volumeInfo?.categories[0]==='Travel')))
@@ -142,6 +141,7 @@ export const Cards = () => {
             console.log(res.data.items);
             dispatch(addCountOfValuesAC(res.data.totalItems))
 
+            console.log('1')
 
         })
             .catch(()=>{
@@ -149,10 +149,7 @@ export const Cards = () => {
 
             })
 
-
         }
-
-
     },[author,page,index])
 
 
@@ -170,6 +167,8 @@ export const Cards = () => {
                 dispatch(addBooksAC(res.data.items))
                 dispatch(addCountOfValuesAC(res.data.totalItems))
 
+
+                console.log('2')
 
             })
                 .catch(()=>{
@@ -194,7 +193,7 @@ export const Cards = () => {
 
                 <Card style={styleForCard}>
 
-                    <CardActionArea sx={{height:'650px'}}>
+                    <CardActionArea>
 
                         <CardMedia
                             component="img"
@@ -222,7 +221,7 @@ export const Cards = () => {
                            <Button component={Link} to={'/info'} state={{...el}} size="small" variant={'contained'} sx={{marginRight:1}} >More</Button>
                             <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
-                    <Typography fontFamily={'cursive'} textOverflow={'clip'} sx={{height:20}} fontSize={'14px'} component="small">
+                    <Typography fontFamily={'cursive'} textOverflow={'clip'} sx={{height:'40px'}} fontSize={'14px'} component="small">
                        {el.volumeInfo?.description}
                     </Typography>
                         </CardContent>
