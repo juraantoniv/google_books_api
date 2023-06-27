@@ -146,7 +146,6 @@ export const Cards = () => {
         })
             .catch(()=>{
 
-
             })
 
         }
@@ -160,15 +159,10 @@ export const Cards = () => {
     useEffect(()=>{
 
             if (genre){
-
-
             bookApiService.getGenres(genre,page,index).then((res)=>{
                 setLoading(false)
                 dispatch(addBooksAC(res.data.items))
                 dispatch(addCountOfValuesAC(res.data.totalItems))
-
-
-                console.log('2')
 
             })
                 .catch(()=>{
@@ -221,7 +215,7 @@ export const Cards = () => {
                            <Button component={Link} to={'/info'} state={{...el}} size="small" variant={'contained'} sx={{marginRight:1}} >More</Button>
                             <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
-                    <Typography fontFamily={'cursive'} textOverflow={'clip'} sx={{height:'40px'}} fontSize={'14px'} component="small">
+                    <Typography fontFamily={'cursive'} textOverflow={'clip'} sx={{height:'120px', whiteSpace:'initial',textOverflow:'ellipsis',maxWidth:'75ch'}} fontSize={'14px'} component="small">
                        {el.volumeInfo?.description}
                     </Typography>
                         </CardContent>
