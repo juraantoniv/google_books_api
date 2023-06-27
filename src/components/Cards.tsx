@@ -139,9 +139,7 @@ export const Cards = () => {
         if (!genre || genre==='google_books_api'){
 
         bookApiService.getAll(author,page,index).then((res)=>{
-
             setLoading(false)
-            // dispatch(addBooksAC(res.data.items?.filter(el =>el.volumeInfo?.categories[0]==='Travel')))
             dispatch(addBooksAC(res.data.items))
             console.log(res.data.items);
             dispatch(addCountOfValuesAC(res.data.totalItems))
