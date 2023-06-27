@@ -94,7 +94,7 @@ const styleForCard = {
     borderRadius: 15,
     margin: '20px',
     backgroundColor: 'blue',
-    height: '650px',
+    height:'520px',
     hover: {
         "&:hover": {
             backgroundColor: 'rgb(7, 177, 77, 0.42)'
@@ -200,8 +200,8 @@ export const Cards = () => {
                             image={el.volumeInfo?.imageLinks?.thumbnail ? el.volumeInfo.imageLinks?.thumbnail : imgNotFound}
                             alt="img"
                         />
-                        <CardContent sx={{padding:'0 10px 0 10px'}}>
-                            <Typography  fontFamily={'fantasy'} fontSize={'15px'} gutterBottom variant="overline" component="small">
+                        <CardContent sx={{padding:'10px 10px 0 10px'}}>
+                            <Typography  fontFamily={'fantasy'} fontSize={'15px'} sx={{lineHeight:'8px'}} gutterBottom variant="overline" component="small">
                             {el.volumeInfo?.title}
                         </Typography>
                             </CardContent>
@@ -221,7 +221,7 @@ export const Cards = () => {
                             <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
                     <Typography  fontFamily={'cursive'} textOverflow={'clip'}  fontSize={'14px'} component="small">
-                       {el.volumeInfo?.description}
+                       {el.volumeInfo?.description?.toString().slice(0,150).concat('...')}
                     </Typography>
                         </CardContent>
                     </CardActionArea>
