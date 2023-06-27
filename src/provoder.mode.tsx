@@ -19,14 +19,13 @@ function AppMode() {
     let index = useSelector<AppRootStateType, number>(state => state.books.index)
     let totalItems = useSelector<AppRootStateType, number>(state => state.books.items.totalItems)
 
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams({p:'5'})
 
-    console.log(index);
+    console.log(searchParams);
 
     useEffect(() => {
-        const params = Object.fromEntries(searchParams)
 
-        console.log(params);
+        const params = Object.fromEntries(searchParams)
 
         // setPage(+params.page || 1)
         // setCount(+params.count || 4)

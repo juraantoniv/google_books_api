@@ -19,7 +19,6 @@ import SelectForName from "./SelectForName";
 
 
 
-
 export default function SearchAppBar() {
 
     const navigate = useNavigate();
@@ -30,8 +29,6 @@ export default function SearchAppBar() {
     let page = useSelector<AppRootStateType, number>(state => state.books.pages)
     let author = useSelector<AppRootStateType, string>(state => state.books.author)
     let index = useSelector<AppRootStateType, number>(state => state.books.index)
-
-
 
     const dispatch = useDispatch();
 
@@ -59,15 +56,9 @@ const margin ={
                     dispatch(addBooksAC(res.data.items))
                     dispatch(addCountOfValuesAC(res.data.totalItems))
                 })
-
             }
 
-
-
     },[query,author,page,index])
-
-
-
 
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -75,16 +66,11 @@ const margin ={
          setQuery(e.currentTarget.value)
     }
 
-
-
-
    const  decPage=()=> {
 
        navigate('/')
        dispatch(paginationAC(0))
     }
-
-
 
     return (
         <Box sx={{ flexGrow: 1, marginBottom:5, display:'flex' ,justifyContent:'center', alignItems:'center'}}>
@@ -94,9 +80,9 @@ const margin ={
                     <Button  sx={{background:'5e35b1', marginRight:10}} variant="contained" onClick={decPage}>{ <HomeIcon />}</Button>
 
                     <Button disabled={genre==='Fiction' } sx={margin} variant="contained" onClick={()=>navigate('Fiction')}>Fiction</Button>
-                    <Button disabled={genre==='Self-Help'} sx={margin} variant="contained" onClick={()=>navigate('Computers')}>Computers</Button>
-                    <Button disabled={genre==='Board books'} sx={margin} variant="contained" onClick={()=>navigate('Law')}>Law</Button>
-                    <Button disabled={genre==='Forest animals'} sx={margin} variant="contained" onClick={()=>navigate('Business')}>Business</Button>
+                    <Button disabled={genre==='Computers'} sx={margin} variant="contained" onClick={()=>navigate('Computers')}>Computers</Button>
+                    <Button disabled={genre==='Law'} sx={margin} variant="contained" onClick={()=>navigate('Law')}>Law</Button>
+                    <Button disabled={genre==='Business'} sx={margin} variant="contained" onClick={()=>navigate('Business')}>Business</Button>
 
 
                     <TextField

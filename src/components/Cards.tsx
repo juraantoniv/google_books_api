@@ -89,12 +89,17 @@ export type imageLinksInfoType = {
 }
 
 const styleForCard = {
-    justifyContent:'center',
-    width:'360px',
-    borderRadius:15,
-    margin:'20px',
-    backgroundColor:'blue',
-    height:'650px',
+    justifyContent: 'center',
+    width: '360px',
+    borderRadius: 15,
+    margin: '20px',
+    backgroundColor: 'blue',
+    height: '650px',
+    hover: {
+        "&:hover": {
+            backgroundColor: 'rgb(7, 177, 77, 0.42)'
+        }
+    }
 }
 
 export const Cards = () => {
