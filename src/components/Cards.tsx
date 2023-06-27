@@ -94,7 +94,7 @@ const styleForCard = {
     borderRadius: 15,
     margin: '20px',
     backgroundColor: 'blue',
-    height:'520px',
+    height:'540px',
     hover: {
         "&:hover": {
             backgroundColor: 'rgb(7, 177, 77, 0.42)'
