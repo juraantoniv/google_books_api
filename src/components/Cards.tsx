@@ -215,12 +215,12 @@ export const Cards = () => {
                                 Author | {el.volumeInfo?.authors}
                             </Typography>
                         </CardContent>
-                        <CardContent>
+                        <CardContent sx={{height:'100px',textOverflow:'inherit'}}>
                         <CardActions>
                            <Button component={Link} to={'/info'} state={{...el}} size="small" variant={'contained'} sx={{marginRight:1}} >More</Button>
                             <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
-                    <Typography fontFamily={'cursive'} textOverflow={'clip'}  fontSize={'14px'} component="small">
+                    <Typography  fontFamily={'cursive'} textOverflow={'clip'}  fontSize={'14px'} component="small">
                        {el.volumeInfo?.description}
                     </Typography>
                         </CardContent>
