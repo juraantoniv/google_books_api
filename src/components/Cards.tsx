@@ -200,18 +200,18 @@ export const Cards = () => {
                             image={el.volumeInfo?.imageLinks?.thumbnail ? el.volumeInfo.imageLinks?.thumbnail : imgNotFound}
                             alt="img"
                         />
-                        <CardContent>
+                        <CardContent sx={{padding:'0 10px 0 10px'}}>
                             <Typography  fontFamily={'fantasy'} fontSize={'15px'} gutterBottom variant="overline" component="small">
                             {el.volumeInfo?.title}
                         </Typography>
                             </CardContent>
-                        <CardContent sx={{margin:'1px', textShadow:"revert-layer", color:'violet'}}>
+                        <CardContent sx={{padding:'0 10px 0 10px',margin:'1px', textShadow:"revert-layer", color:'violet'}}>
                             <Typography  fontFamily={'monospace'} fontSize={'12px'}  gutterBottom variant="overline" component="small">
                                 Category : {el.volumeInfo?.categories}
                             </Typography>
                         </CardContent>
-                        <CardContent>
-                            <Typography fontFamily={'-moz-initial'} fontWeight={'bold'} gutterBottom variant="button" component="small">
+                        <CardContent sx={{padding:'0 10px 0 10px'}}>
+                            <Typography fontFamily={'-moz-initial'} fontWeight={'bold'} sx={{padding:'0'}}gutterBottom variant="button" component="small">
                                 Author | {el.volumeInfo?.authors}
                             </Typography>
                         </CardContent>
@@ -220,7 +220,7 @@ export const Cards = () => {
                            <Button component={Link} to={'/info'} state={{...el}} size="small" variant={'contained'} sx={{marginRight:1}} >More</Button>
                             <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
-                    <Typography fontFamily={'cursive'} textOverflow={'clip'} sx={{height:'120px', whiteSpace:'initial',textOverflow:'ellipsis',maxWidth:'75ch'}} fontSize={'14px'} component="small">
+                    <Typography fontFamily={'cursive'} textOverflow={'clip'}  fontSize={'14px'} component="small">
                        {el.volumeInfo?.description}
                     </Typography>
                         </CardContent>
