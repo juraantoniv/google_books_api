@@ -221,7 +221,7 @@ export const Cards = () => {
                             <Button size="small" variant={'contained'} href={el.volumeInfo?.canonicalVolumeLink}>Read</Button>
                         </CardActions>
                     <Typography  fontFamily={'cursive'} textOverflow={'clip'}  fontSize={'14px'} component="small">
-                       {el.volumeInfo?.description?.toString().slice(0,150).concat('...')}
+                       {el.volumeInfo?.description?.toString().slice(0,90).concat('...')}
                     </Typography>
                         </CardContent>
                     </CardActionArea>
