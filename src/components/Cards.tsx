@@ -161,7 +161,7 @@ export const Cards = () => {
 
     useEffect(()=>{
 
-            if (genre){
+            if (genre) {
             bookApiService.getGenres(genre,page,index).then((res)=>{
                 setLoading(false)
                 dispatch(addBooksAC(res.data.items))

@@ -8,7 +8,7 @@ export const base_url = "https://www.googleapis.com/books/v1";
 //search
 const query = "?q=";
 
-export const myKey = 'key=AIzaSyDS3gexSiigQ-xbvU9Phe7EOhruFFykaAQ'
+export const myKey = 'AIzaSyDS3gexSiigQ-xbvU9Phe7EOhruFFykaAQ'
 
 
 
