@@ -62,12 +62,10 @@ const margin ={
 
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-
          setQuery(e.currentTarget.value)
     }
 
    const  decPage=()=> {
-
        navigate('/')
        dispatch(paginationAC(0))
     }
@@ -78,12 +76,10 @@ const margin ={
                 <Toolbar sx={toolBarStyles}>
 
                     <Button  sx={{background:'5e35b1', marginRight:10}} variant="contained" onClick={decPage}>{ <HomeIcon />}</Button>
-
                     <Button disabled={genre==='Fiction' } sx={margin} variant="contained" onClick={()=>navigate('Fiction')}>Fiction</Button>
                     <Button disabled={genre==='Computers'} sx={margin} variant="contained" onClick={()=>navigate('Computers')}>Computers</Button>
                     <Button disabled={genre==='Law'} sx={margin} variant="contained" onClick={()=>navigate('Law')}>Law</Button>
                     <Button disabled={genre==='Business'} sx={margin} variant="contained" onClick={()=>navigate('Business')}>Business</Button>
-
 
                     <TextField
                         id="outlined-basic" label="Search Book" variant="filled" size={'small'}

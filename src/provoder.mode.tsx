@@ -21,7 +21,7 @@ function AppMode() {
 
     const [searchParams, setSearchParams] = useSearchParams({p:'5'})
 
-    console.log(searchParams);
+    console.log(searchParams.get('startIndex'));
 
     useEffect(() => {
 

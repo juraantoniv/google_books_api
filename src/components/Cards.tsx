@@ -132,7 +132,6 @@ export const Cards = () => {
     //
 
 
-    console.log(genre);
 
     useEffect(()=>{
 
